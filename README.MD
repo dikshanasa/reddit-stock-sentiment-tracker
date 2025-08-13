@@ -37,7 +37,6 @@ AI-powered Chrome Extension that analyzes stock-related Reddit threads and visua
 |------------------------|--------------|
 | ![tooltip](docs/tooltip-sample.png) | ![context menu](docs/context-menu.png) |
 
-(*Add real screenshots from your working build in a /docs folder*)
 
 ---
 

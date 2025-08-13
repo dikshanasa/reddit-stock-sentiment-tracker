@@ -117,9 +117,10 @@ app.get("/reddit/:symbol", async (req, res) => {
 
     // Filter & dedupe
     const tickerRegex = new RegExp(
-      `(\\$${symbol}\\b|\\b${symbol}\\b)`,
-      "i"
-    );
+  `(?<![A-Z0-9])\\$?${symbol}(?![A-Z0-9])`,
+  "i"
+);
+
     allPosts = allPosts.filter(
       (p) => tickerRegex.test(p.title) || tickerRegex.test(p.selftext)
     );
