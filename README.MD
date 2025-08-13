@@ -106,15 +106,6 @@ node server.js
 
 ---
 
-## ⚡ Roadmap
-
-- [ ] Publish Chrome Web Store listing
-- [ ] Offline caching of recent results
-- [ ] Per-subreddit sentiment trends
-- [ ] Dockerized backend image
-
----
-
 ## 🤝 Contributing
 
 Pull requests are welcome. For major changes, open an issue first to discuss what you'd like to change.
