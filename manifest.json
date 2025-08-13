@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Reddit Stock Sentiment Tracker",
-  "version": "1.0",
-  "description": "Analyze stock sentiment from Reddit posts",
+  "version": "1.1",
+  "description": "Analyze stock sentiment from Reddit posts including titles, selftext and top comments",
   "permissions": ["contextMenus", "activeTab", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "background": {

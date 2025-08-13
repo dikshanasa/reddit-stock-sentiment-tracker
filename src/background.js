@@ -1,6 +1,6 @@
 const BACKEND_URL = "http://localhost:5000";
 const cache = new Map();
-const TTL = 300000; // cache 5 min
+const TTL = 300000; // 5 min cache
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     fetchAll(message.ticker)
       .then(data => sendResponse({ success: true, data }))
       .catch(err => sendResponse({ success: false, error: err.message }));
-    return true; // keep channel open for async
+    return true;
   }
 });
 

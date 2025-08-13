@@ -12,11 +12,7 @@ if (!window.__sentimentScriptLoaded) {
         const sel = window.getSelection();
         if (!sel.rangeCount) return;
         const rect = sel.getRangeAt(0).getBoundingClientRect();
-        showTooltipAtPosition(
-          ticker,
-          rect.left + window.scrollX,
-          rect.bottom + window.scrollY + 5
-        );
+        showTooltipAtPosition(ticker, rect.left + window.scrollX, rect.bottom + window.scrollY + 5);
       }
     }
   });
@@ -37,7 +33,7 @@ if (!window.__sentimentScriptLoaded) {
     tooltipEl.style.top = `${y}px`;
     tooltipEl.style.left = `${x}px`;
 
-    chrome.runtime.sendMessage({ type: 'FETCH_STOCK_DATA', ticker }, res => {
+    chrome.runtime.sendMessage({ type: 'FETCH_STOCK_DATA', ticker }, (res) => {
       if (res.success) {
         renderTooltipData(res.data);
       } else {
@@ -62,7 +58,8 @@ if (!window.__sentimentScriptLoaded) {
     const comments = (d.posts || []).map(p => ({
       title: p.title.length > 100 ? p.title.slice(0, 97) + '…' : p.title,
       subreddit: p.subreddit || '',
-      url: p.url
+      url: p.url,
+      sentiment: p.threadSentiment
     }));
 
     tooltipEl.innerHTML = `
@@ -75,17 +72,17 @@ if (!window.__sentimentScriptLoaded) {
       </div>
 
       <div class="sentiment-section">
-        <label>Sentiment Score:</label>
+        <label>Overall Sentiment:</label>
         <div class="progress-bar">
           <div class="progress-fill" style="width:${d.sentimentScore}%; background:${sentimentColor};"></div>
         </div>
       </div>
 
       <div class="reddit-comments">
-        <label>Recent Reddit:</label>
+        <label>Recent Reddit Threads:</label>
         ${comments.length
           ? comments.map(p => `
-            <div class="comment">
+            <div class="comment" style="color:${getSentimentColor(p.sentiment)}">
               <a href="${p.url}" target="_blank" rel="noopener noreferrer">${p.title}</a>
               <span class="subreddit">(${p.subreddit})</span>
             </div>
@@ -104,8 +101,8 @@ if (!window.__sentimentScriptLoaded) {
   }
 
   function getSentimentColor(score) {
-    if (score >= 70) return '#4caf50';
-    if (score >= 40) return '#ffeb3b';
-    return '#f44336';
+    if (score >= 70) return '#4caf50'; // bullish
+    if (score >= 40) return '#ffeb3b'; // neutral
+    return '#f44336'; // bearish
   }
 }

@@ -28,7 +28,7 @@
   line-height: 1.3;
 }
 .comment a {
-  color: #4da3ff;
+  color: inherit;
   text-decoration: none;
 }
 .comment a:hover {
