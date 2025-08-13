@@ -1,11 +1,9 @@
-// Prevent duplicate injection errors if content.js is loaded multiple times
 if (!window.__sentimentScriptLoaded) {
   window.__sentimentScriptLoaded = true;
 
   let tooltipEl;
   let hideTimeout;
 
-  // Listen for message from background.js (context menu click)
   chrome.runtime.onMessage.addListener((msg) => {
     if (msg.type === "ANALYZE_TICKER" && msg.ticker) {
       const tickerRegex = /^\$?[A-Z]{1,5}$/;
@@ -85,7 +83,7 @@ if (!window.__sentimentScriptLoaded) {
 
       <div class="reddit-comments">
         <label>Recent Reddit:</label>
-        ${comments.length > 0
+        ${comments.length
           ? comments.map(p => `
             <div class="comment">
               <a href="${p.url}" target="_blank" rel="noopener noreferrer">${p.title}</a>
