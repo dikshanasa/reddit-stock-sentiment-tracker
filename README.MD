@@ -45,7 +45,7 @@ AI-powered Chrome Extension that analyzes stock-related Reddit threads and visua
 ### **1. Clone the repo**
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/reddit-stock-sentiment-tracker.git
+git clone https://github.com/dikshanasa/reddit-stock-sentiment-tracker.git
 cd reddit-stock-sentiment-tracker
 ```
 
