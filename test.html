@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Ticker Test Page</title>
+    <!-- Tailwind CSS for basic styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            text-align: center;
+            max-width: 800px;
+            width: 90%;
+            line-height: 1.8;
+            color: #333;
+        }
+        .ticker {
+            font-weight: bold;
+            color: #2563eb; /* blue-700 */
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .section-title {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="container bg-white p-8 rounded-xl shadow-xl">
+        <h1 class="section-title">Welcome to the Stock Ticker Test Page!</h1>
+        <p class="text-lg mb-6">
+            This page is designed to help you test your Chrome extension.
+            Hover over the stock tickers below to see if your popup appears with sentiment and price data.
+        </p>
+
+        <p class="mb-4">
+            Today, the market is buzzing. <span class="ticker">$AAPL</span> is showing strong performance,
+            while <span class="ticker">$MSFT</span> is holding steady.
+            Many analysts are watching <span class="ticker">$TSLA</span> closely after recent news.
+        </p>
+        <p class="mb-4">
+            There's a lot of talk on Reddit about <span class="ticker">$GME</span> and its potential short squeeze,
+            and some are debating whether <span class="ticker">$AMC</span> will follow suit.
+        </p>
+        <p class="mb-4">
+            Don't forget to keep an eye on tech giants like <span class="ticker">$GOOG</span> and <span class="ticker">$AMZN</span>.
+            Energy stocks like <span class="ticker">$XOM</span> are also making headlines.
+        </p>
+        <p class="mb-4">
+            A friend just texted me that <span class="ticker">$NVDA</span> is hitting new highs!
+            The pharmaceutical sector is also active, with <span class="ticker">$PFE</span> and <span class="ticker">$JNJ</span> in the news.
+        </p>
+        <p>
+            This should give you a good range of tickers to test against your extension.
+            Feel free to add more or modify the text!
+        </p>
+    </div>
+</body>
+</html>

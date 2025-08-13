@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Reddit Stock Sentiment Tracker",
+  "version": "1.0",
+  "permissions": ["contextMenus", "activeTab", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"],
+      "css": ["styles.css"],
+      "all_frames": true
+    }
+  ]
+}
