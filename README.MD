@@ -35,7 +35,7 @@ AI-powered Chrome Extension that analyzes stock-related Reddit threads and visua
 
 | Tooltip with Sentiment | Context Menu |
 |------------------------|--------------|
-| ![tooltip](docs/tooltip-sample.png) | ![context menu](docs/context-menu.png) |
+| ![tooltip](src/assets/tooltip.png) | ![context menu](src/assets/context-menu.png) |
 
 
 ---
