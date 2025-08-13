@@ -118,6 +118,3 @@ MIT License © 2025
 
 ---
 
-## ☕ Support
-
-If you find this useful, you can [Buy Me a Coffee](https://www.buymeacoffee.com/YOURUSERNAME) to support development.
