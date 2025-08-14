@@ -64,7 +64,32 @@ cd reddit-stock-sentiment-tracker
 
 ---
 
-## 🔧 Local Development
+## 🌐 Deployed Backend
+
+The production API is live at:
+**[https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app](https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app)**
+
+### **API Endpoints**
+
+- `GET /` - Health check
+- `GET /reddit/:symbol` - Get Reddit sentiment for a stock symbol
+- `GET /all/:symbol` - Get combined stock data + sentiment
+
+### **Example Usage**
+
+```bash
+# Get Tesla sentiment from Reddit
+curl "https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app/reddit/TSLA"
+
+# Get Apple stock data + sentiment
+curl "https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app/all/AAPL"
+```
+
+---
+
+## 🔧 Local Development (Optional)
+
+*Note: The extension works out-of-the-box with the deployed backend. Local development is only needed if you want to modify the backend code.*
 
 ### **Backend Setup**
 
@@ -90,24 +115,16 @@ Run locally:
 node server.js
 ```
 
+### **Extension Development**
 
-The production API is live at:
-**[https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app](https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app)**
+For local backend testing, update `BACKEND_URL` in your extension files:
 
-### **API Endpoints**
+```javascript
+// For local development
+const BACKEND_URL = 'http://localhost:5000';
 
-- `GET /` - Health check
-- `GET /reddit/:symbol` - Get Reddit sentiment for a stock symbol
-- `GET /all/:symbol` - Get combined stock data + sentiment
-
-### **Example Usage**
-
-```bash
-# Get Tesla sentiment from Reddit
-curl "https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app/reddit/TSLA"
-
-# Get Apple stock data + sentiment
-curl "https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app/all/AAPL"
+// For production (default)
+const BACKEND_URL = 'https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app';
 ```
 
 ---
