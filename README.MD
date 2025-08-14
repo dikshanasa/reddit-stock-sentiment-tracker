@@ -90,21 +90,6 @@ Run locally:
 node server.js
 ```
 
-### **Extension Development**
-
-For local backend testing, update `BACKEND_URL` in your extension files:
-
-```javascript
-// For local development
-const BACKEND_URL = 'http://localhost:5000';
-
-// For production (default)
-const BACKEND_URL = 'https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app';
-```
-
----
-
-## 🌐 Deployed Backend
 
 The production API is live at:
 **[https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app](https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app)**
