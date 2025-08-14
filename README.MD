@@ -106,6 +106,24 @@ node server.js
 
 ---
 
+## 🎬 Demo
+
+Watch the Reddit Stock Sentiment Tracker in action:
+
+![Demo GIF](src/assets/redditDemo.gif)
+
+**How it works:**
+1. Highlight a stock ticker anywhere on a webpage.
+2. Right-click and select **Analyze Stock Sentiment** from the context menu.
+3. A tooltip pops up showing real-time sentiment based on the latest Reddit threads.
+4. Color-coded bars indicate sentiment strength:
+   - 🟢 Bullish (≥70)
+   - 🟡 Neutral (40–69)
+   - 🔴 Bearish (<40)
+5. Live stock price and historical info are fetched from Finnhub for context.
+
+---
+
 ## 🤝 Contributing
 
 Pull requests are welcome. For major changes, open an issue first to discuss what you'd like to change.
