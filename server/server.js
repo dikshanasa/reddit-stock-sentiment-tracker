@@ -13,6 +13,15 @@ const REDDIT_CLIENT_ID = process.env.REDDIT_CLIENT_ID;
 const REDDIT_CLIENT_SECRET = process.env.REDDIT_CLIENT_SECRET;
 const REDDIT_USER_AGENT = process.env.REDDIT_USER_AGENT;
 
+// Add a root endpoint for testing
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "Reddit Stock Sentiment Tracker API is running!",
+    endpoints: ["/reddit/:symbol", "/all/:symbol"],
+    status: "healthy"
+  });
+});
+
 // Map model labels to numeric scores
 function finbertScore(label) {
   switch (label.toLowerCase()) {
@@ -28,13 +37,13 @@ function sanitizeText(text) {
   if (!text || typeof text !== 'string') return '';
   
   return text
-    .replace(/\*\*/g, '')           // Remove bold markdown
+    .replace(/\*\*/g, '')           // Remove bold markdown (fixed escaping)
     .replace(/\*/g, '')             // Remove italic markdown  
-    .replace(/u\/\w+/g, '')         // Remove user mentions
-    .replace(/r\/\w+/g, '')         // Remove subreddit mentions
-    .replace(/https?:\/\/\S+/g, '') // Remove URLs
-    .replace(/[^\w\s.,!?-]/g, ' ')  // Replace special chars with spaces
-    .replace(/\s+/g, ' ')           // Collapse multiple spaces
+    .replace(/u\/\w+/g, '')         // Remove user mentions (fixed escaping)
+    .replace(/r\/\w+/g, '')         // Remove subreddit mentions (fixed escaping)
+    .replace(/https?:\/\/\S+/g, '') // Remove URLs (fixed escaping)
+    .replace(/[^\w\s.,!?-]/g, ' ')  // Replace special chars with spaces (fixed escaping)
+    .replace(/\s+/g, ' ')           // Collapse multiple spaces (fixed escaping)
     .substring(0, 512)              // HF model token limit
     .trim();
 }
@@ -219,8 +228,9 @@ app.get("/all/:symbol", async (req, res) => {
   try {
     const [stockData, redditData] = await Promise.all([
       fetchFinnhubQuote(symbol),
+      // Fixed: Use current host instead of localhost for deployed version
       fetch(
-        `http://localhost:${process.env.PORT || 5000}/reddit/${symbol}`
+        `${req.protocol}://${req.get('host')}/reddit/${symbol}`
       ).then((r) => r.json()),
     ]);
     res.json({

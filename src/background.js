@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = 'https://reddit-stock-sentiment-tracker-4asug17my-dikshanasas-projects.vercel.app';
 const cache = new Map();
 const TTL = 300000; // 5 min cache
 
