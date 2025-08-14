@@ -23,8 +23,35 @@ function finbertScore(label) {
   }
 }
 
+// Clean text before sending to HF API
+function sanitizeText(text) {
+  if (!text || typeof text !== 'string') return '';
+  
+  return text
+    .replace(/\*\*/g, '')           // Remove bold markdown
+    .replace(/\*/g, '')             // Remove italic markdown  
+    .replace(/u\/\w+/g, '')         // Remove user mentions
+    .replace(/r\/\w+/g, '')         // Remove subreddit mentions
+    .replace(/https?:\/\/\S+/g, '') // Remove URLs
+    .replace(/[^\w\s.,!?-]/g, ' ')  // Replace special chars with spaces
+    .replace(/\s+/g, ' ')           // Collapse multiple spaces
+    .substring(0, 512)              // HF model token limit
+    .trim();
+}
+
+// Add delay function for rate limiting
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 async function analyzeTextFinBERT(text) {
   try {
+    const cleanText = sanitizeText(text);
+    
+    // Skip if text is too short or empty
+    if (cleanText.length < 10) {
+      console.log('⚠️ Text too short, using neutral score');
+      return 50;
+    }
+
     const response = await fetch(
       "https://api-inference.huggingface.co/models/mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis",
       {
@@ -33,15 +60,19 @@ async function analyzeTextFinBERT(text) {
           "Authorization": `Bearer ${HF_TOKEN}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputs: text }),
+        body: JSON.stringify({ inputs: cleanText }),
       }
     );
+
     if (!response.ok) {
-      console.error(`HF API HTTP error: ${response.status}`);
+      const errorText = await response.text();
+      console.error(`HF API HTTP error: ${response.status} - ${errorText}`);
       return 50;
     }
+
     const result = await response.json();
     if (!Array.isArray(result) || !Array.isArray(result[0])) return 50;
+    
     const best = result[0].reduce((prev, cur) =>
       cur.score > prev.score ? cur : prev
     );
@@ -117,9 +148,9 @@ app.get("/reddit/:symbol", async (req, res) => {
 
     // Filter & dedupe
     const tickerRegex = new RegExp(
-  `(?<![A-Z0-9])\\$?${symbol}(?![A-Z0-9])`,
-  "i"
-);
+      `(?<![A-Z0-9])\\$?${symbol}(?![A-Z0-9])`,
+      "i"
+    );
 
     allPosts = allPosts.filter(
       (p) => tickerRegex.test(p.title) || tickerRegex.test(p.selftext)
@@ -150,7 +181,10 @@ app.get("/reddit/:symbol", async (req, res) => {
           .filter((c) => c.kind === "t1" && c.data.body)
           .map((c) => c.data.body);
         console.log(`💬 Found ${comments.length} top comments`);
+        
+        // Add rate limiting between comment analysis
         for (const comment of comments) {
+          await delay(100); // 100ms delay between requests
           commentScores.push(await analyzeTextFinBERT(comment));
         }
       }
